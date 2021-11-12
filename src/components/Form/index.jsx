@@ -6,10 +6,13 @@ import { useHistory } from "react-router";
 import Input from "../Input";
 import Button from "../Button";
 
-const Form = () => {
+const Form = ({ setAllowed }) => {
   const history = useHistory();
   const schema = yup.object().shape({
-    name: yup.string().required("Nome obrigatório"),
+    name: yup
+      .string()
+      .required("Nome obrigatório")
+      .matches(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/, "Apenas letras"),
     email: yup
       .string()
       .required("Email obrigatório")
@@ -17,9 +20,10 @@ const Form = () => {
     password: yup
       .string()
       .required("Senha obrigatório")
+      .min(8, "Mínimo de 8 dígitos")
       .matches(
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Maiúsculas, minúsculas, especiais %$#@%, 8 caracters +"
+        "Maiúsculas, minúsculas, especiais %$#@%"
       ),
     confirm_password: yup
       .string()
@@ -35,6 +39,7 @@ const Form = () => {
   });
 
   const handleRegister = (data) => {
+    setAllowed(true);
     history.push("/dashboard");
   };
 

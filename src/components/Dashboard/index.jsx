@@ -1,11 +1,12 @@
-import { useHistory } from "react-router";
 import Button from "../Button";
 
-const Dashboard = () => {
-  const history = useHistory();
+const Dashboard = ({ setAllowed }) => {
+  const handleReturn = () => {
+    setAllowed(false);
+  };
   return (
     <>
-      <Button onclick={() => history.push("/")}>Retornar</Button>
+      <Button onclick={handleReturn}>Retornar</Button>
     </>
   );
 };
