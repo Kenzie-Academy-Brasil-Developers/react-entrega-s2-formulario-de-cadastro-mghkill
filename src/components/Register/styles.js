@@ -4,11 +4,12 @@ export const FormStyled = styled.section`
   display: flex;
   justify-content: center;
   width: 70%;
-  background-color: pink;
+  background-color: rgb(1 4 13 / 20%);
   margin: 0 auto;
   padding: 1.5rem;
   height: 50vh;
-  width: 55vh;
+  width: 65vw;
+  border-radius: 6px;
   form {
     display: flex;
     flex-direction: column;
@@ -21,6 +22,8 @@ export const FormStyled = styled.section`
     span {
       height: 25px;
       padding: 5px;
+      font-size: smaller;
+      color: rgb(201 28 76 / 80%);
     }
   }
   @media only screen and (min-width: 600px) {

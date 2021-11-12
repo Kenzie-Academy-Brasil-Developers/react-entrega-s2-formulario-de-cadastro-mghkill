@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import Form from "../components/Form";
+import Form from "../components/Register";
 import Dashboard from "../components/Dashboard";
 
 const Routes = () => {

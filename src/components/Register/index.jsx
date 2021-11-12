@@ -2,16 +2,21 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormStyled } from "./styles";
+import { useHistory } from "react-router";
 
 const Form = () => {
+  const history = useHistory();
   const schema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
-    email: yup.string().required("Email obrigatório"),
+    email: yup
+      .string()
+      .required("Email obrigatório")
+      .email("Não é um email válido"),
     password: yup
       .string()
       .required("Senha obrigatório")
       .matches(
-        /^.(?=.{8,})((?=.[!@#$%^&()\-_=+{};:,<.>]){1})(?=.\d)((?=.[a-z]){1})((?=.[A-Z]){1}).*$/,
+        /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Maiúsculas, minúsculas, especiais %$#@%, 8 caracters +"
       ),
     confirm_password: yup
@@ -26,8 +31,9 @@ const Form = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const handleRegister = (data) => {
-    console.log(data);
+    history.push("/dashboard");
   };
   return (
     <FormStyled>
@@ -35,7 +41,7 @@ const Form = () => {
         <input type="text" {...register("name")} />
         <span>{errors.name?.message}</span>
 
-        <input type="text" {...register("email")} />
+        <input {...register("email")} />
         <span>{errors.email?.message}</span>
         <input type="text" {...register("password")} />
         <span>{errors.password?.message}</span>
