@@ -1,11 +1,12 @@
 import { useHistory } from "react-router";
+import Button from "../Button";
 
 const Dashboard = () => {
   const history = useHistory();
   return (
-    <div>
-      <button onClick={() => history.push("/")}>Retornar</button>
-    </div>
+    <>
+      <Button onclick={() => history.push("/")}>Retornar</Button>
+    </>
   );
 };
 export default Dashboard;

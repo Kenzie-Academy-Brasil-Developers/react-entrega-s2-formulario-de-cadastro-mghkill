@@ -1,8 +1,10 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormStyled } from "./styles";
+import { SectionStyled } from "./styles";
 import { useHistory } from "react-router";
+import Input from "../Input";
+import Button from "../Button";
 
 const Form = () => {
   const history = useHistory();
@@ -35,21 +37,44 @@ const Form = () => {
   const handleRegister = (data) => {
     history.push("/dashboard");
   };
+
   return (
-    <FormStyled>
+    <SectionStyled>
       <form onSubmit={handleSubmit(handleRegister)}>
-        <input type="text" {...register("name")} />
+        <Input
+          type="text"
+          placeholder={"Nome"}
+          register={register}
+          value="name"
+        />
         <span>{errors.name?.message}</span>
 
-        <input {...register("email")} />
+        <Input
+          type="text"
+          placeholder={"E-mail"}
+          register={register}
+          value="email"
+        />
         <span>{errors.email?.message}</span>
-        <input type="text" {...register("password")} />
+
+        <Input
+          type="text"
+          placeholder={"Senha"}
+          register={register}
+          value="password"
+        />
         <span>{errors.password?.message}</span>
-        <input type="text" {...register("confirm_password")} />
+
+        <Input
+          type="text"
+          placeholder="Confirmar senha"
+          register={register}
+          value="confirm_password"
+        />
         <span>{errors.confirm_password?.message}</span>
-        <button type="submit">Enviar</button>
+        <Button type={"submit"}>Enviar</Button>
       </form>
-    </FormStyled>
+    </SectionStyled>
   );
 };
 export default Form;
