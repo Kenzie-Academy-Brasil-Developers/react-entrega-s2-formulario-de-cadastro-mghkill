@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SectionStyled = styled.section`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   width: 70%;
   background: rgb(1 4 13 50%);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -15,6 +16,12 @@ export const SectionStyled = styled.section`
   height: 50vh;
   width: 65vw;
   border-radius: 6px;
+
+  h1 {
+    color: lightcyan;
+    text-align: center;
+  }
+
   form {
     display: flex;
     flex-direction: column;

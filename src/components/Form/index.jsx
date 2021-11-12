@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import Input from "../Input";
 import Button from "../Button";
 
-const Form = ({ setAllowed }) => {
+const Form = ({ setAllowed, setUserData }) => {
   const history = useHistory();
   const schema = yup.object().shape({
     name: yup
@@ -23,12 +23,12 @@ const Form = ({ setAllowed }) => {
       .min(8, "Mínimo de 8 dígitos")
       .matches(
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Maiúsculas, minúsculas, especiais %$#@%"
+        "Maiúsculas, minúsculas, especiais %$#@% e números"
       ),
     confirm_password: yup
       .string()
       .required("Repetir senha obrigatório")
-      .oneOf([yup.ref("password")], "Senhas não são iguais!"),
+      .oneOf([yup.ref("password")], "Senhas não são iguais"),
   });
   const {
     handleSubmit,
@@ -40,46 +40,50 @@ const Form = ({ setAllowed }) => {
 
   const handleRegister = (data) => {
     setAllowed(true);
+    setUserData(data);
     history.push("/dashboard");
   };
 
   return (
-    <SectionStyled>
-      <form onSubmit={handleSubmit(handleRegister)}>
-        <Input
-          type="text"
-          placeholder={"Nome"}
-          register={register}
-          value="name"
-        />
-        <span>{errors.name?.message}</span>
+    <>
+      <SectionStyled>
+        <h1>Página de cadastro</h1>
+        <form onSubmit={handleSubmit(handleRegister)}>
+          <Input
+            type="text"
+            placeholder={"Nome"}
+            register={register}
+            value="name"
+          />
+          <span>{errors.name?.message}</span>
 
-        <Input
-          type="text"
-          placeholder={"E-mail"}
-          register={register}
-          value="email"
-        />
-        <span>{errors.email?.message}</span>
+          <Input
+            type="text"
+            placeholder={"E-mail"}
+            register={register}
+            value="email"
+          />
+          <span>{errors.email?.message}</span>
 
-        <Input
-          type="text"
-          placeholder={"Senha"}
-          register={register}
-          value="password"
-        />
-        <span>{errors.password?.message}</span>
+          <Input
+            type="password"
+            placeholder={"Senha"}
+            register={register}
+            value="password"
+          />
+          <span>{errors.password?.message}</span>
 
-        <Input
-          type="text"
-          placeholder="Confirmar senha"
-          register={register}
-          value="confirm_password"
-        />
-        <span>{errors.confirm_password?.message}</span>
-        <Button type={"submit"}>Enviar</Button>
-      </form>
-    </SectionStyled>
+          <Input
+            type="password"
+            placeholder="Confirmar senha"
+            register={register}
+            value="confirm_password"
+          />
+          <span>{errors.confirm_password?.message}</span>
+          <Button type={"submit"}>Enviar</Button>
+        </form>
+      </SectionStyled>
+    </>
   );
 };
 export default Form;

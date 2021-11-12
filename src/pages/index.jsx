@@ -6,19 +6,19 @@ import { useState } from "react";
 
 const Routes = () => {
   const [allowed, setAllowed] = useState(false);
-
+  const [userData, setUserData] = useState({});
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <Form setAllowed={setAllowed} />
+          <Form setAllowed={setAllowed} setUserData={setUserData} />
         </Route>
 
         <Route path="/dashboard">
           {!allowed ? (
             <Redirect to="/" />
           ) : (
-            <Dashboard setAllowed={setAllowed} />
+            <Dashboard setAllowed={setAllowed} userData={userData} />
           )}
         </Route>
       </Switch>
